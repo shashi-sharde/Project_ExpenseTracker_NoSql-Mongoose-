@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <style>
+        .container {
+    display: flex;
+justify-content: center;
+}
+
+.container form {
+    position:static;
+    width: 300px;
+    height: 200px;
+    border-radius: 100px;
+    padding: 40px;
+    box-sizing:content-box;
+    background: #ecf0f3a4;
+    box-shadow: 14px 14px 20px #cbced1a6, -14px -14px 20px rgba(255, 255, 255, 0.144);
+    text-align: center;
+    
+  }
+button{
+       
+        font-size: 100%;
+        color: rgb(2, 104, 109);
+    }
+    body {
+        background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #13bb4b,#23d5ab);
+        background-size: 400% 400%;
+        animation: gradient 15s ease infinite;
+        height: 100vh;
+    }
+    
+    @keyframes gradient {
+        0% {
+            background-position: 0% 50%;
+        }
+        50% {
+            background-position: 100% 50%;
+        }
+        100% {
+            background-position: 0% 50%;
+        }
+    }
+    
+    </style>
+</head>
+<body>
+    <div class = login-container>
+        <div class="container">
+            <div class="card-body">
+                <div class="d-flex flex-column justify-content-center w-100 h-100">
+        
+                    <div class="d-flex flex-column justify-content-center align-items-center">
+                        
+                        <div class="btn-group my-5">
+                            <a href="https://codepen-api-export-production.s3.us-west-2.amazonaws.com/zip/PEN/pyBNzX/1578778289271/pure-css-gradient-background-animation.zip" class="btn btn-outline-light" aria-current="page"><i class="fas fa-file-download me-2"></i></a>
+                            <a href="https://codepen.io/P1N2O/full/pyBNzX" class="btn btn-outline-light"><i class="fas fa-expand ms-2"></i></a>
+                        </div>
+                        <a href="https://manuel.pinto.dev" class="text-decoration-none">
+                            <h5 class="fw-light text-white m-0"></h5>
+                        </a>
+                    </div>
+                </div>
+                </div>
+        <form onsubmit="Login(event)" action="'/" method="POST">
+            <label>Email</label><br>
+            <input class="Email" type="email"  name="email" required><br>
+            <label>Password</label><br>
+            <input class="Pass" type="password" name="password" required><br><br>
+            <button type="submit">Login</button><br><br>
+            
+            <a href="./SignUp.html"> New User? SignUp</a>
+        </form>
+    </div>
+    <center><a href="/password/forgotpassword"> Forgot Password</a></center>
+
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.2.2/axios.min.js"></script>
+    <script>
+        function Login(event){
+
+            try{
+                event.preventDefault(event);
+            
+            const email = event.target.email.value;
+            const password = event.target.password.value;
+
+            const obj = {
+                email,
+                password
+            }
+            
+            axios.post('http://localhost:3000/users/login',obj)
+            .then((response)=>{
+                
+                if(response.status === 201){
+                    alert('Login Successfull!')
+                    localStorage.setItem('token', response.data.token) 
+                    //const token = localStorage.getItem('token')
+                    window.location.href = './Expense.html';
+                    //window.location.assign('http://127.0.0.1:5500/views/Expense.html');
+                    
+                }
+                
+                else if(response.status === 207){
+                    document.body.innerHTML += `<div style='color:red'>User Not Found! </div>`;
+                    alert('user not found')
+                }
+                else{
+                    throw new Error("Something went Wrong")
+                }
+                
+            
+
+            }).catch(err => {
+        console.log(JSON.stringify(err))
+        document.body.innerHTML += `<div style="color:red;">Incorrect Password! <div>`;
+    })
+
+            }catch(err){
+                document.body.innerHTML += `<div style="color:red;">Incorrect Password! <div>`;
+            }
+            
+            
+            
+
+        }
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div class="center">
+    <h1>Reset your Password</h1>
+    <form onsubmit="forgotpassword(event)" method="POST">
+        <label>Please enter Your Email</label><br>
+    <input type="email" Name="EmailId" id="emailId"><br><br>
+    <button id="Email">Send</button>
+</div>
+</form>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.2.2/axios.min.js"></script>
+<script>
+    function forgotpassword(event){
+        event.preventDefault(event)
+        email = event.target.EmailId.value
+    
+        const obj = {
+                email
+        }
+        axios.post('http://localhost:3000/password/forgotpassword', obj)
+        .then(response => {
+        if(response.status === 202){
+            document.body.innerHTML += '<div style="color:green;">Mail Successfuly sent <div>'
+        } else {
+            throw new Error('Something went wrong!!!')
+        }
+    }).catch(err => {
+        document.body.innerHTML += `<div style="color:red;">${err} <div>`;
+    })
+    }
+</script>
+</body>
+</html>

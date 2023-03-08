@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>Expense Tracker</title>
+<style>
+        .container {
+    display: flex;
+justify-content: center;
+}
+
+.container form {
+    position: center;
+    width: 400px;
+    height: 250px;
+    border-radius: 100px;
+    padding: 10px;
+    box-sizing: border-box;
+    background: #ecf0f3a4;
+    box-shadow: 14px 14px 20px #cbced1a6, -14px -14px 20px rgba(255, 255, 255, 0.144);
+    text-align: center;
+    
+  }
+
+button{
+       
+        font-size: 100%;
+        color: rgb(2, 104, 109);
+    }
+    body {
+        background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d582);
+        background-size: 400% 400%;
+        animation: gradient 15s ease infinite;
+        height: 100vh;
+    }
+    
+    @keyframes gradient {
+        0% {
+            background-position: 0% 50%;
+        }
+        50% {
+            background-position: 100% 50%;
+        }
+        100% {
+            background-position: 0% 50%;
+        }
+    }
+    .leaderboardbutton{
+        padding-bottom: 15%;
+    }
+    .DownloadList {
+        float:right;
+        padding-bottom: 5%;
+      }
+    #pagination{
+        text-align: center;
+        margin-top: 25px;
+    }
+    .buttonsClass{
+        text-align: center;
+    }
+    
+    </style>
+</head>
+<body>
+    <div class="container">
+    <div class="card-body">
+        <div class="d-flex flex-column justify-content-center w-100 h-100">
+
+            <div class="d-flex flex-column justify-content-center align-items-center">
+                
+                <div class="btn-group my-5">
+                    <a href="https://codepen-api-export-production.s3.us-west-2.amazonaws.com/zip/PEN/pyBNzX/1578778289271/pure-css-gradient-background-animation.zip" class="btn btn-outline-light" aria-current="page"><i class="fas fa-file-download me-2"></i></a>
+                    <a href="https://codepen.io/P1N2O/full/pyBNzX" class="btn btn-outline-light"><i class="fas fa-expand ms-2"></i></a>
+                </div>
+                <a href="https://manuel.pinto.dev" class="text-decoration-none">
+                    <h5 class="fw-light text-white m-0"></h5>
+                </a>
+            </div>
+        </div>
+        </div>
+    <form onsubmit="ExpenseDetails(event)" action="/" method="POST">
+        <h1 style="color:rgb(35, 137, 142)">Expense Tracker</h1>
+        <label>Money Spent</label><br>
+        <input id="num" type="number" Name="number" required /><br>
+        <label>Choose  Description</label><br>
+        <input id="desc" type="text" Name="description" required /><br>
+        <label>Choose Category</label><br>
+        <select id="categ" Name="categories">
+            <option value="Travelling" >Travelling</option>
+            <option value="Food" >Food</option>
+            <option value="Shopping" >Shopping</option>
+            <option value="Clubbing" >Clubbing</option>
+            <option value="Gift" >Gift</option>
+        </select><br><br>
+        <button style="color:rgb(35, 137, 142)">Add Expenses</button>
+        
+    </form>
+    </div>
+
+</div>
+<div class="buttonsClass">
+    <button  id="logout" class="btn btn-outline-danger my-2 my-sm-0 btn-sm"
+        type="submit">Logout</button>
+
+</div>
+
+
+
+
+<div  id="message" align="center" ></div>
+<h2><strong>Expense List</strong></h2>
+
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+
+    <ul id="NumberOfExpenses"></ul>
+    
+    <ul id="leaderboard"></ul>
+    <ul id ='downloadedURL'></ul>
+    
+    <div class="leaderboardbutton">
+        
+        <button  id="exp-leaderboard" style="color:rgb(25, 199, 68)" >Show LeaderBoard</button>
+        <button onclick="download()" id="downloadExpense" style="color:rgb(25, 199, 68)"> Download Expense Report</button>
+    </div>
+    
+    
+    <div class ="DownloadList">
+        <button  id="rzp-button1" style="color:rgb(25, 199, 68)" >Buy Premium</button>
+        <button onclick = "download_List()" id="AllDownloads" style="color:rgb(25, 199, 68)"  > Download List</button>
+    </div>
+
+    <div style="text-align: center;">
+        <form onsubmit="perPage(event)" id="perpage">
+            Expenses Per page: <input type="number" min="2" max="20" name="Items_Per_Page">
+            <button type="submit">submit</button>
+        </form>
+    </div>
+    <div id="pagination" >
+
+    </div>
+    
+    
+    
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.2.2/axios.min.js" ></script>
+    <script src="./expense.js">
+        </script>
+   
+</body>
+</html>
